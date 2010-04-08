@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'sinatra'
+require 'sinatra/base'
 
 get '/' do
-  erb :index
+  HomePage.new.to_s
 end

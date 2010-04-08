@@ -1,6 +1,6 @@
 require 'erector'
 
-class Homepage < Erector::Widget
+class HomePage < Erector::Widget
   def content
     html do
       head do
