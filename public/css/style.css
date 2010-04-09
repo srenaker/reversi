@@ -1,19 +1,19 @@
 body {
 	background-color: #000;
+	font-family: arial;
 }
 
 h2 {
 	margin: 50px;
 	text-align: center;
 	color: #fff;
-	font-family: arial;
 }
 
 .board {
-	margin-left: 270px;
+	float: left;
 	padding: 20px;
 	background-color: #fff;
-	width: 560px;
+	width: 542px;
 }
 
 .square {
@@ -21,4 +21,23 @@ h2 {
 	height: 50px;
 	width: 50px;
 	background-color: #0d4832;
+	cursor: pointer;
+}
+
+.control_panel {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	float: left;
+	background-color: #3c7660;
+	padding: 30px;
+	margin: 20px;
+}
+
+.start_button {
+	margin-bottom: 25px;
+	font-size: 12pt;
+}
+
+.score_field {
+	margin: 10px;
 }
