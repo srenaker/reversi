@@ -5,7 +5,6 @@ class HomePage < Erector::Widget
   BOARD_SIZE = 8
   
   def content
-    puts "bs #{BOARD_SIZE}"
     html do
       head do
         title 'Reversi'

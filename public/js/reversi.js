@@ -8,7 +8,7 @@ function startGame() {
 	// TODO: use getId method (??)
 	$('#' + boardSize/2 + (boardSize/2 - 1)).addClass('white');
 	$("#" + (boardSize/2 - 1) + (boardSize/2)).addClass('white');
-	$("#" + (boardSize/2 - 1) + (boardSize/2 - 1)).addClass('black');
+	$("#" + (boardSize/2 - 1) + (boardSize/2 - 1)).addClass('white');
 	$("#" + boardSize/2 + boardSize/2).addClass('black');
 	// $('.start_button').value('Restart game');
 	
@@ -70,68 +70,54 @@ function valid_move(squareId) {
 function evalRow(squareId, offset) {
 	// first check that the proximate piece is of opposite color
 	if ($('#' + (squareId + offset)).hasClass(opposite)) {
+		//alert('found a ' + opposite + ' at ' + (squareId + offset));
 		// then check that there's a piece of the same color at the other end
 		for (i = squareId + offset; i >= 0; i += offset) { 
-			if ($('#' + (squareId + offset)).hasClass(turn)) {	
+			nextSquare = i + offset;
+			//alert ('ns ' + nextSquare);
+			if ($('#' + nextSquare).hasClass(turn)) {	
+				//alert('found a ' + turn);
 				// flip all the pieces in between
-				for (j = squareId + offset; j > i; j += offset) { 
+				for (j = squareId + offset; j > nextSquare; j += offset) { 
+					//alert('about to flip ' + j)
 					$('#' + j).removeClass(opposite).addClass(turn);
 				}
-			} else
-				break;
-			}
+				return true;
+			} 
 		}
 	} else {
-		break;
+		return false;
 	}
-
-	break;	
+	
 }
 
 function look(squareId, direction) {
 
 	switch(direction) {
 		case 'nw':
-
-		case 'n':
-			for (i=squareId-10; i>=0; i -= 10) { row_array.push(i); }		
-			break;		
-		case 'ne':
-			for (i=squareId-9; i>=0; i -= 9) { row_array.push(i);	}		
-			break;		
-		case 'e':
-			for (i=squareId+1; i<=squareId + 10; i += 1) { row_array.push(i); }		
-			break;							
-		case 'se':
-			for (i=squareId+11; i<=100; i += 11) {	row_array.push(i);	}		
-			break;					
-		case 's':
-			for (i=squareId+10; i<=100; i += 10) {	row_array.push(i); }		
-			break;		
-		case 'sw':
-			for (i=squareId+9; i<=100; i += 9) { row_array.push(i); }		
-			break;					
-		case 'w':
-			for (i=squareId-1; i>=squareId - 10; i -= 1) { row_array.push(i);	}		
-			break;					
+			return evalRow(squareId, -11);
+			break;
+		// case 'n':
+		// 	for (i=squareId-10; i>=0; i -= 10) { row_array.push(i); }		
+		// 	break;		
+		// case 'ne':
+		// 	for (i=squareId-9; i>=0; i -= 9) { row_array.push(i);	}		
+		// 	break;		
+		// case 'e':
+		// 	for (i=squareId+1; i<=squareId + 10; i += 1) { row_array.push(i); }		
+		// 	break;							
+		// case 'se':
+		// 	for (i=squareId+11; i<=100; i += 11) {	row_array.push(i);	}		
+		// 	break;					
+		// case 's':
+		// 	for (i=squareId+10; i<=100; i += 10) {	row_array.push(i); }		
+		// 	break;		
+		// case 'sw':
+		// 	for (i=squareId+9; i<=100; i += 9) { row_array.push(i); }		
+		// 	break;					
+		// case 'w':
+		// 	for (i=squareId-1; i>=squareId - 10; i -= 1) { row_array.push(i);	}		
+		// 	break;					
 	}
 	
-	// first check that the proximate square is of the opposite color
-	if ($('#' + row_array[0]).hasClass(opposite)) {
-		// alert('found true');
-		// now look down the rest of the row for a matching color square
-		for (j in row_array) {		
-			if ($('#' + row_array[j]).hasClass(turn)) {
-				
-				row_array.pop;
-				for (n in row_array) {
-					$('#' + row_array[n]).addClass(turn).removeClass(opposite);
-				}
-				return j;
-				break;
-			}
-		}
-	} else {
-		return false;
-	}
 }
