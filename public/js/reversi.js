@@ -4,13 +4,15 @@ var boardSize = 8;
 var directions = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'];
 
 function startGame() {
+	// blank out board
+	$('.square').removeClass('white').removeClass('black');
 	// lay out initial pieces
 	// TODO: use getId method (??)
 	$('#' + boardSize/2 + (boardSize/2 - 1)).addClass('white');
 	$("#" + (boardSize/2 - 1) + (boardSize/2)).addClass('white');
-	$("#" + (boardSize/2 - 1) + (boardSize/2 - 1)).addClass('white');
+	$("#" + (boardSize/2 - 1) + (boardSize/2 - 1)).addClass('black');
 	$("#" + boardSize/2 + boardSize/2).addClass('black');
-	// $('.start_button').value('Restart game');
+	$('.start_button').val('Restart game');
 	
 	turn = 'white';
 	opposite = 'black';
@@ -67,12 +69,13 @@ function valid_move(squareId) {
 	return false;
 }
 
-function evalRow(squareId, offset) {
+function evalRow(squareId, offset, limit) {
+
 	// first check that the proximate piece is of opposite color
 	if ($('#' + (squareId + offset)).hasClass(opposite)) {
 		//alert('found a ' + opposite + ' at ' + (squareId + offset));
 		// then check that there's a piece of the same color at the other end
-		for (i = squareId + offset; i >= 0; i += offset) { 
+		for (i = squareId + offset; i >= limit; i += offset) { 
 			nextSquare = i + offset;
 			//alert ('ns ' + nextSquare);
 			if ($('#' + nextSquare).hasClass(turn)) {	
@@ -94,15 +97,17 @@ function evalRow(squareId, offset) {
 function look(squareId, direction) {
 
 	switch(direction) {
+		case 'w':
+			squareIdStr = squareId + '';
+			limit = squareIdStr.charAt(0) + '0'; 
+			return evalRow(squareId, -1, limit);
 		case 'nw':
-			return evalRow(squareId, -11);
-			break;
-		// case 'n':
-		// 	for (i=squareId-10; i>=0; i -= 10) { row_array.push(i); }		
-		// 	break;		
-		// case 'ne':
-		// 	for (i=squareId-9; i>=0; i -= 9) { row_array.push(i);	}		
-		// 	break;		
+			return evalRow(squareId, -11, 0);
+			//break;
+		case 'n':
+			return evalRow(squareId, -10, 0);
+		case 'ne':
+			return evalRow(squareId, -9, 0);
 		// case 'e':
 		// 	for (i=squareId+1; i<=squareId + 10; i += 1) { row_array.push(i); }		
 		// 	break;							
@@ -114,9 +119,6 @@ function look(squareId, direction) {
 		// 	break;		
 		// case 'sw':
 		// 	for (i=squareId+9; i<=100; i += 9) { row_array.push(i); }		
-		// 	break;					
-		// case 'w':
-		// 	for (i=squareId-1; i>=squareId - 10; i -= 1) { row_array.push(i);	}		
 		// 	break;					
 	}
 	
