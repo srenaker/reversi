@@ -20,11 +20,11 @@ class HomePage < Erector::Widget
           
             div :class => 'score' do
               text "White score: "
-              input :class => 'score_field', :name => 'white_score', :size => '6'
+              span :class => 'white_score'
             end
             div :class => 'score' do
               text "Black score: "
-              input :class => 'score_field', :name => 'black_score', :size => '6'
+              span :class => 'black_score'
             end
           end
           

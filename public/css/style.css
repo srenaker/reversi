@@ -51,6 +51,9 @@ h2 {
 	font-size: 12pt;
 }
 
-.score_field {
+.white_score, .black_score {
 	margin: 10px;
+	padding: 5px;
+	width: 75px;
+	height: 15px;
 }
